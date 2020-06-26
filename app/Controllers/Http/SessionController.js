@@ -5,8 +5,8 @@ const Token = use('App/Models/Token')
 class SessionController {
 
   async login({request, auth}){
-    const {cpf, password} = request.all()
-    const token = await auth.attempt(cpf, password)
+    const {email, password} = request.all()
+    const token = await auth.attempt(email, password)
 
     return token
   }

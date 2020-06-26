@@ -3,15 +3,15 @@
 class Login {
   get rules () {
     return {
-      cpf: 'required|string',
-      password: 'required|string'
+      email: 'required|string',
+      password: 'required'
     }
   }
 
   get messages () {
   	return {
-  		required: '{{ field }} é obrigatório',
-  		string: '{{ field }} não é uma string válida'
+  		required: '{{ field }} is mandatory',
+  		string: '{{ field }} not string valid'
   	}
   }
 

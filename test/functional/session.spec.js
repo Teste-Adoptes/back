@@ -1,49 +1,50 @@
 'use strict'
 
 const Factory = use('Factory')
-const { test, trait } = use('Test/Suite')('Testes de sessão')
+const { test, trait } = use('Test/Suite')('Tests Session')
 
 trait('Test/ApiClient')
 trait('Auth/Client')
 
 const Token = use('App/Models/Token')
 
-test('Teste de login do usuário com dados válidos', async ({client}) => {
+test('user login with valid data', async ({client}) => {
 	const user = await Factory.model('App/Models/User').create()
-	const dado = {
-		cpf: user.cpf,
+
+  const data = {
+		email: user.email,
 		password: 'password123'
   }
-	const response = await client.post('/api/login')
-									.send(dado)
-									.end()
+	const response = await client.post('/login')
+									.send(data)
+                  .end()
   response.assertStatus(200)
 }).timeout(0)
 
-test('Teste de login de usuário - sem informação de login', async ({client}) => {
+test('user login with not valid data', async ({client}) => {
   const user = Factory.model('App/Models/User').create()
-  const dado = {}
-  const response = await client.post('/api/login')
-                  .send(dado)
+  const data = {}
+  const response = await client.post('/login')
+                  .send(data)
                   .end()
   response.assertStatus(400)
   response.assertJSONSubset([
     {
-      message: 'cpf é obrigatório',
-      field: 'cpf',
+      message: 'email is mandatory',
+      field: 'email',
       validation: 'required'
     },
     {
-      message: 'password é obrigatório',
+      message: 'password is mandatory',
       field: 'password',
       validation: 'required'
     }
   ])
 }).timeout(0)
 
-test('Teste de logout do usuário', async ({client}) => {
+test('logout user', async ({client}) => {
 	const user = await Factory.model('App/Models/User', ).create()
-	const response = await client.post('/api/logout')
+	const response = await client.post('/logout')
 									.loginVia(user, 'jwt')
 									.end()
   response.assertStatus(204)
