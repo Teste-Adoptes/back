@@ -13,20 +13,14 @@
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
-const CPF = require("cpf_cnpj").CPF
 const faker = require('faker')
 faker.locale = "pt_BR";
 
 Factory.blueprint('App/Models/User', () => {
 	return {
-		cpf: CPF.generate(),
-		nome: faker.name.findName(),
+		name: faker.name.findName(),
 		email: faker.internet.email(),
-		nascimento: '1992-02-27 00:00:00',
-		password: 'password123',
-		telefone: faker.phone.phoneNumber(),
-		local: faker.address.streetAddress(),
-		admin: false
+		password: 'password123'
 	}
 })
 

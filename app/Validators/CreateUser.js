@@ -3,24 +3,18 @@
 class CreateUser {
   get rules () {
     return {
-      nome: 'required|string',
+      name: 'required|string',
       email: 'required|email|unique:users',
-      password: 'required',
-      cpf: 'required|string|unique:users',
-      nascimento: 'required',
-      telefone: 'string',
-      local: 'string'
+      password: 'required'
     }
   }
 
   get messages () {
     return {
-      required: '{{ field }} é obrigatório',
-      email: 'E-mail inválido',
-      string: '{{ field }} não é uma string válida',
-      date: '{{ field }} não é uma data válida',
-      'email.unique': 'E-mail já cadastrado',
-      'cpf.unique': 'Cpf já cadastrado'
+      required: '{{ field }} is mandatory',
+      email: 'E-mail invalid',
+      string: '{{ field }} not string valid',
+      'email.unique': 'E-mail already registered'
     }
   }
 

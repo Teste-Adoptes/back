@@ -3,18 +3,15 @@
 class UpdateUser {
   get rules () {
     return {
-      nome: 'string',
-      nascimento: 'date',
-      telefone: 'string',
-      local: 'string',
+      name: 'string',
+      email: 'string',
       password: 'string'
     }
   }
 
   get messages () {
     return {
-      string: '{{ field }} não é uma string válida',
-      date: '{{ field }} não é uma data válida'
+      string: '{{ field }} not string valid'
     }
   }
 
