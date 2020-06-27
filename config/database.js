@@ -1,89 +1,26 @@
 'use strict'
 
-/** @type {import('@adonisjs/framework/src/Env')} */
-const Env = use('Env')
 
 /** @type {import('@adonisjs/ignitor/src/Helpers')} */
 const Helpers = use('Helpers')
 
 const Url = require('url-parse')
-const DATABASE_URL = new Url(Env.get('DATABASE_URL'))
-const DB_CONNECTION = new Url(Env.get('DB_CONNECTION'))
+const DATABASE_URL = new Url( process.env.DATABASE_URL )
 
 
 module.exports = {
-  /*
-  |--------------------------------------------------------------------------
-  | Default Connection
-  |--------------------------------------------------------------------------
-  |
-  | Connection defines the default connection settings to be used while
-  | interacting with SQL databases.
-  |
-  */
-  connection: Env.get('DB_CONNECTION', DB_CONNECTION),
 
-  /*
-  |--------------------------------------------------------------------------
-  | Sqlite
-  |--------------------------------------------------------------------------
-  |
-  | Sqlite is a flat file database and can be a good choice for a development
-  | environment.
-  |
-  | npm i --save sqlite3
-  |
-  */
-  sqlite: {
-    client: 'sqlite3',
-    connection: {
-      filename: Helpers.databasePath(`${Env.get('DB_DATABASE', 'development')}.sqlite`)
-    },
-    useNullAsDefault: true,
-    debug: Env.get('DB_DEBUG', false)
-  },
+  connection: process.env.DB_CONNECTION || 'pg',
 
-  /*
-  |--------------------------------------------------------------------------
-  | MySQL
-  |--------------------------------------------------------------------------
-  |
-  | Here we define connection settings for MySQL database.
-  |
-  | npm i --save mysql
-  |
-  */
-  mysql: {
-    client: 'mysql',
-    connection: {
-      host: Env.get('DB_HOST', 'localhost'),
-      port: Env.get('DB_PORT', ''),
-      user: Env.get('DB_USER', 'root'),
-      password: Env.get('DB_PASSWORD', ''),
-      database: Env.get('DB_DATABASE', 'adonis')
-    },
-    debug: Env.get('DB_DEBUG', false)
-  },
-
-  /*
-  |--------------------------------------------------------------------------
-  | PostgreSQL
-  |--------------------------------------------------------------------------
-  |
-  | Here we define connection settings for PostgreSQL database.
-  |
-  | npm i --save pg
-  |
-  */
   pg: {
     client: 'pg',
     connection: {
-      host: Env.get('DB_HOST', DATABASE_URL.hostname),
-      port: Env.get('DB_PORT', DATABASE_URL.port),
-      user: Env.get('DB_USER', DATABASE_URL.username),
-      password: Env.get('DB_PASSWORD', DATABASE_URL.password),
-      database: Env.get('DB_DATABASE', DATABASE_URL.pathname.substr(1))
+      host: process.env.DB_HOST || DATABASE_URL.hostname,
+      port: process.env.DB_PORT || DATABASE_URL.port,
+      user: process.env.DB_USER || DATABASE_URL.username,
+      password: process.env.DB_PASSWORD || DATABASE_URL.password,
+      database: process.env.DB_DATABASE || DATABASE_URL.pathname.substr(1)
     },
-    debug: Env.get('DB_DEBUG', false)
+    debug: process.env.DB_DEBUG || false
   }
 }

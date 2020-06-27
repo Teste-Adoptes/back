@@ -1,7 +1,5 @@
 'use strict'
 
-/** @type {import('@adonisjs/framework/src/Env')} */
-const Env = use('Env')
 
 module.exports = {
 
@@ -16,7 +14,7 @@ module.exports = {
   |
   */
 
-  name: Env.get('APP_NAME', 'AdonisJs'),
+  name: process.env.APP_NAME || 'AdonisJs',
 
   /*
   |--------------------------------------------------------------------------
@@ -27,7 +25,7 @@ module.exports = {
   | to encrypt cookies, sessions and other sensitive data.
   |
   */
-  appKey: Env.getOrFail('APP_KEY'),
+  appKey: process.env.APP_KEY,
 
   http: {
     /*
@@ -107,7 +105,7 @@ module.exports = {
     | production to optimize view loading time.
     |
     */
-    cache: Env.get('CACHE_VIEWS', true)
+    cache: process.env.CACHE_VIEWS || true
   },
 
   static: {
