@@ -15,7 +15,7 @@ test('user login with valid data', async ({client}) => {
 		email: user.email,
 		password: 'password123'
   }
-	const response = await client.post('/login')
+	const response = await client.post('/api/login')
 									.send(data)
                   .end()
   response.assertStatus(200)
@@ -24,7 +24,7 @@ test('user login with valid data', async ({client}) => {
 test('user login with not valid data', async ({client}) => {
   const user = Factory.model('App/Models/User').create()
   const data = {}
-  const response = await client.post('/login')
+  const response = await client.post('/api/login')
                   .send(data)
                   .end()
   response.assertStatus(400)
@@ -44,7 +44,7 @@ test('user login with not valid data', async ({client}) => {
 
 test('logout user', async ({client}) => {
 	const user = await Factory.model('App/Models/User', ).create()
-	const response = await client.post('/logout')
+	const response = await client.post('/api/logout')
 									.loginVia(user, 'jwt')
 									.end()
   response.assertStatus(204)
