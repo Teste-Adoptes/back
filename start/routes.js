@@ -17,27 +17,34 @@
 const Route = use('Route')
 
 
-/*
-|--------------------------------------------------------------------------
-| Route: -> Controller: SessionController
-|--------------------------------------------------------------------------
-*/
-Route.post('/login', 'SessionController.login').validator('Login')
-Route.post('/logout', 'SessionController.logout')
 
-/*
-|--------------------------------------------------------------------------
-| Route: /cadastro -> Controller: UserController
-|--------------------------------------------------------------------------
-*/
-Route.resource('cadastro', 'UserController').apiOnly()
-  .validator(new Map([
-    [['users.store'], ['CreateUser']],
-    [['users.update'], ['UpdateUser']]
-  ]))
-  .middleware(new Map([
-    [['users.index'], ['auth']],
-    [['users.show'], ['auth']],
-    [['users.update'], ['auth']],
-    [['users.destroy'], ['auth']]
-  ]))
+Route.group(() => {
+
+  /*
+  |--------------------------------------------------------------------------
+  | Route: -> Controller: SessionController
+  |--------------------------------------------------------------------------
+  */
+  Route.post('/login', 'SessionController.login').validator('Login')
+  Route.post('/logout', 'SessionController.logout')
+
+
+  /*
+  |--------------------------------------------------------------------------
+  | Route: /cadastro -> Controller: UserController
+  |--------------------------------------------------------------------------
+  */
+  Route.resource('cadastro', 'UserController').apiOnly()
+    .validator(new Map([
+      [['users.store'], ['CreateUser']],
+      [['users.update'], ['UpdateUser']]
+    ]))
+    .middleware(new Map([
+      [['users.index'], ['auth']],
+      [['users.show'], ['auth']],
+      [['users.update'], ['auth']],
+      [['users.destroy'], ['auth']]
+    ]))
+
+
+}).prefix('api')

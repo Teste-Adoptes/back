@@ -6,7 +6,7 @@ class UserController {
 
   async index({auth, response}){
     const user = await auth.getUser()
-    if(user.admin == false){
+    if(!user){
       return response.status(401).send({error: 'Not authorized'})
     }
     const users = await User.all()
@@ -15,12 +15,12 @@ class UserController {
 
   async show({params, auth, response}){
     const user = await auth.getUser()
-    if(user.id == params.id || user.admin == true){
-      const userShow = await User.findOrFail(params.id)
-      return userShow
-    }else{
+    if(!user){
       return response.status(401).send({error: 'Not authorized'})
     }
+
+    const userShow = await User.findOrFail(params.id)
+    return userShow
   }
 
   async store({request}){
@@ -30,24 +30,27 @@ class UserController {
   }
 
   async update({auth, params, response, request}){
-    const user = await auth.getUser()
-    if(user.id == params.id || user.admin == true){
-      const userData = request.all()
-      user.merge(userData)
+    const user_auth = await auth.getUser()
+    if(user_auth.id == params.id){
+      const data = request.all()
+      const user = await User.find(params.id)
+      user.merge(data)
       await user.save()
+      return user
     } else {
       return response.status(401).send({error: 'Not authorized'})
     }
   }
 
   async destroy({auth, params, response}){
-    const userAdmin = await auth.getUser()
-    if(!userAdmin.admin){
+    const user = await auth.getUser()
+    if(user.id == params.id){
+      const userFind = await User.find(params.id)
+      await userFind.delete()
+    } else {
       return response.status(401).send({error: 'Not authorized'})
     }
 
-    const userFind = await User.find(params.id)
-    await userFind.delete()
   }
 
 }
