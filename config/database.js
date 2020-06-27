@@ -8,6 +8,7 @@ const Helpers = use('Helpers')
 
 const Url = require('url-parse')
 const DATABASE_URL = new Url(Env.get('DATABASE_URL'))
+const DB_CONNECTION = new Url(Env.get('DB_CONNECTION'))
 
 
 module.exports = {
@@ -20,7 +21,7 @@ module.exports = {
   | interacting with SQL databases.
   |
   */
-  connection: Env.get('DB_CONNECTION', 'mysql'),
+  connection: Env.get('DB_CONNECTION', DB_CONNECTION),
 
   /*
   |--------------------------------------------------------------------------
