@@ -7,7 +7,6 @@ const Env = use('Env')
 const Helpers = use('Helpers')
 
 const Url = require('url-parse')
-const dotenv = require('dotenv').config()
 const DATABASE_URL = new Url(Env.get('DATABASE_URL'))
 const DB_CONNECTION = new Url(Env.get('DB_CONNECTION'))
 

@@ -17,6 +17,7 @@
 |     Make sure to pass a relative path from the project root.
 */
 
+require('dotenv').config({path: __dirname + '/.env'});
 const { Ignitor } = require('@adonisjs/ignitor')
 
 new Ignitor(require('@adonisjs/fold'))
