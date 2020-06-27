@@ -9,6 +9,7 @@ const Helpers = use('Helpers')
 const Url = require('url-parse')
 const DATABASE_URL = new Url(Env.get('DATABASE_URL'))
 
+
 module.exports = {
   /*
   |--------------------------------------------------------------------------

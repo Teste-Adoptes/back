@@ -3,6 +3,9 @@
 /** @type {import('@adonisjs/framework/src/Env')} */
 const Env = use('Env')
 
+const Url = require('url-parse')
+const CORS_ORIGIN = new Url(Env.get('CORS_ORIGIN'))
+
 module.exports = {
   /*
   |--------------------------------------------------------------------------
@@ -19,7 +22,7 @@ module.exports = {
   | Function - Receives the current origin and should return one of the above values.
   |
   */
-  origin: Env.get('CORS_ORIGIN', true),
+  origin: Env.get('CORS_ORIGIN', CORS_ORIGIN),
 
   /*
   |--------------------------------------------------------------------------
