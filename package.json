@@ -5,7 +5,7 @@
   "description": "Adonisjs boilerplate for API server with pre-configured JWT",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "touch .env && node server.js",
     "test": "node ace test --timeout 10000 --env=test"
   },
   "keywords": [
