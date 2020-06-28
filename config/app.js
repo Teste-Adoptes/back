@@ -216,17 +216,11 @@ module.exports = {
     */
     file: {
       driver: 'file',
-      name: 'adoptes-app',
+      name: 'adoptes-app-info',
       filename: 'info.log',
       level: 'info'
-    },
-
-    file: {
-      driver: 'file',
-      name: 'adoptes-app',
-      filename: 'error.log',
-      level: 'error'
     }
+
   },
 
   /*
