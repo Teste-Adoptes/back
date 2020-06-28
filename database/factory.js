@@ -24,4 +24,14 @@ Factory.blueprint('App/Models/User', () => {
 	}
 })
 
+Factory.blueprint('App/Models/Product', () => {
+  return {
+    name: faker.commerce.productName(),
+    description: faker.commerce.productAdjective(),
+    category: faker.commerce.product(),
+    price: faker.commerce.price(),
+    stock: faker.random.number(1000)
+  }
+})
+
 

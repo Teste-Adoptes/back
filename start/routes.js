@@ -36,15 +36,23 @@ Route.group(() => {
   */
   Route.resource('cadastro', 'UserController').apiOnly()
     .validator(new Map([
-      [['users.store'], ['CreateUser']],
-      [['users.update'], ['UpdateUser']]
+      [['cadastro.store'], ['CreateUser']],
+      [['cadastro.update'], ['UpdateUser']]
     ]))
     .middleware(new Map([
-      [['users.index'], ['auth']],
-      [['users.show'], ['auth']],
-      [['users.update'], ['auth']],
-      [['users.destroy'], ['auth']]
+      [['cadastro.index'], ['auth']],
+      [['cadastro.show'], ['auth']],
+      [['cadastro.update'], ['auth']],
+      [['cadastro.destroy'], ['auth']]
     ]))
 
+  Route.get('product/search',
+    'ProductController.search')
+  .middleware('auth')
+  .as('product/search')
+
+  Route.resource('product', 'ProductController').apiOnly()
+  .middleware('auth')
+  .except(['index', 'show'])
 
 }).prefix('api')
